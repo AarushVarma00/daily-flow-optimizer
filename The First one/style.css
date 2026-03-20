@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 1.8rem;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+h2 {
+    color: #444;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 5px;
+}
+
+h3 {
+    color: #555;
+    font-size: 1rem;
+    margin: 20px 0 10px 0;
+}
+
+.input-section {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    color: #555;
+    font-weight: 500;
+}
+
+input[type="time"],
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.activity-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.activity-row .activity-name { flex: 2; }
+
+.activity-row .activity-time { flex: 1; }
+
+.duration-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.duration-row input {
+    width: 70px;
+}
+
+.duration-label { color: #666; font-weight: 500; }
+
+.activity-row .duration-h,
+.activity-row .duration-m {
+    width: 50px;
+    flex-shrink: 0;
+}
+
+.remove-activity {
+    flex-shrink: 0;
+    width: 36px;
+    padding: 8px !important;
+    background: #ff6b6b !important;
+    color: white !important;
+    font-size: 1.2rem !important;
+    line-height: 1;
+}
+
+.remove-activity:hover {
+    background: #ee5a5a !important;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#addActivity {
+    background: #f0f0f0;
+    color: #555;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#addActivity:hover {
+    background: #e0e0e0;
+}
+
+#generateBtn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#generateBtn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+}
+
+.now-section {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+#currentTask {
+    font-size: 1.2rem;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.plan-section ul {
+    list-style: none;
+}
+
+.plan-section li {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.empty-state {
+    color: #999;
+    font-style: italic;
+}
