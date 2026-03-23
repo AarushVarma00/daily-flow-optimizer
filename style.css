@@ -1,0 +1,26 @@
+body {
+    font-family: Arial;
+    background: #111;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+}
+
+input {
+    margin: 5px;
+    padding: 5px;
+}
+
+button {
+    margin: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+li {
+    margin: 5px;
+}

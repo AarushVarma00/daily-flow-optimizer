@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Flow Optimizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Daily Flow Optimizer</h1>
+
+    <h3>Wake Up</h3>
+    <input type="time" id="wakeUp" value="07:00">
+    <input type="number" id="wakeUpHours" value="1">h
+    <input type="number" id="wakeUpMinutes" value="0">m
+
+    <h3>College</h3>
+    <input type="time" id="collegeStart" value="09:00">
+    <input type="time" id="collegeEnd" value="17:00">
+
+    <h3>Activities</h3>
+    <div id="extraActivities"></div>
+
+    <button id="addActivity">+ Add Activity</button>
+    <button id="generateBtn">Generate</button>
+    <button id="clearBtn">Clear</button>
+
+    <h3>Now</h3>
+    <p id="currentTask">No schedule</p>
+
+    <h3>Schedule</h3>
+    <ul id="scheduleList"></ul>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
