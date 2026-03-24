@@ -1,26 +1,95 @@
 body {
+    margin: 0;
     font-family: Arial;
-    background: #111;
-    color: white;
-    text-align: center;
+    background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+    overflow-x: hidden;
 }
 
+/* WAVE BACKGROUND */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+body::before {
+    top: 10%;
+    left: -50%;
+}
+
+body::after {
+    bottom: 10%;
+    left: -50%;
+}
+
+/* MAIN */
 .container {
     max-width: 500px;
-    margin: auto;
+    margin: 40px auto;
+    padding: 20px;
+    color: white;
 }
 
+/* INPUT + OUTPUT BLOCK */
+.input-section,
+.output-section {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.output-section p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* INPUTS */
 input {
-    margin: 5px;
-    padding: 5px;
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
 }
 
+/* BUTTONS */
 button {
-    margin: 10px;
-    padding: 8px 15px;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    width: 100%;
+    font-weight: bold;
 }
 
+#generateBtn {
+    background: #4facfe;
+    color: white;
+}
+
+#editBtn {
+    background: #ff9800;
+    color: white;
+}
+
+/* LIST */
 li {
-    margin: 5px;
+    background: #222;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* CONFLICT */
+.conflict {
+    background: #5c1a1a;
+    border-left: 4px solid red;
 }
