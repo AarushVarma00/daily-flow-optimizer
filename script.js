@@ -1,5 +1,45 @@
 let mySchedule = [];
 
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('addActivity').onclick = addActivity;
+    document.getElementById('generateBtn').onclick = generateSchedule;
+
+    document.getElementById('editBtn').onclick = () => {
+        document.querySelector('.input-section').style.display = 'block';
+        document.querySelector('.output-section').style.display = 'none';
+    };
+
+    setInterval(updateCurrentTask, 60000);
+});
+
+// ---------- ADD ACTIVITY ----------
+function addActivity() {
+
+    const container = document.getElementById('extraActivities');
+
+    const row = document.createElement('div');
+    row.className = "activity-row";
+
+    row.innerHTML = `
+        <label>What is this activity?</label>
+        <input type="text" class="activity-name">
+
+        <label>When do you begin?</label>
+        <input type="time" class="activity-time">
+
+        <label>How long does it last?</label>
+        <input type="number" class="duration-h" value="1">h
+        <input type="number" class="duration-m" value="0">m
+
+        <button class="remove-btn">❌</button>
+    `;
+
+    container.appendChild(row);
+
+    row.querySelector('.remove-btn').onclick = () => row.remove();
+}
+
 // ---------- TIME HELPERS ----------
 function toMinutes(t) {
     let [h, m] = t.split(':').map(Number);
@@ -7,13 +47,9 @@ function toMinutes(t) {
 }
 
 function toTime(mins) {
-    let h = Math.floor(mins / 60) % 24;
+    let h = Math.floor(mins / 60);
     let m = mins % 60;
     return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
-}
-
-function getDuration(h, m) {
-    return (h * 60 + m) || 60;
 }
 
 function formatDuration(mins) {
@@ -24,105 +60,100 @@ function formatDuration(mins) {
     return `${m}m`;
 }
 
-// ---------- CREATE ITEM ----------
-function createItem(time, label, duration) {
-    let start = toMinutes(time);
-    let end = start + duration;
-
-    return { start, end, label, duration };
-}
-
-// ---------- PAGE LOAD ----------
-document.addEventListener('DOMContentLoaded', () => {
-
-    loadData();
-
-    document.getElementById('addActivity').onclick = addActivity;
-    document.getElementById('generateBtn').onclick = generateSchedule;
-
-    document.getElementById('clearBtn').onclick = () => {
-        localStorage.removeItem("schedule");
-        mySchedule = [];
-        renderSchedule();
-        updateCurrentTask();
-    };
-
-    setInterval(updateCurrentTask, 60000);
-    // Delegate remove button clicks inside the extra activities container
-    document.getElementById('extraActivities').addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-btn')) {
-            e.target.parentElement.remove();
-        }
-    });
-});
-
-// ---------- ADD ACTIVITY ----------
-function addActivity() {
-    const container = document.getElementById('extraActivities');
-
-    const row = document.createElement('div');
-
-    row.innerHTML = `
-        <input type="text" class="activity-name" placeholder="Activity">
-        <input type="time" class="activity-time" value="18:00">
-        <input type="number" class="duration-h" value="1">h
-        <input type="number" class="duration-m" value="0">m
-        <button type="button" class="remove-btn">Remove</button>
-    `;
-
-    container.appendChild(row);
-}
-
 // ---------- GENERATE ----------
 function generateSchedule() {
 
     let schedule = [];
 
     let wake = document.getElementById('wakeUp').value;
-    let wakeH = parseInt(document.getElementById('wakeUpHours').value) || 0;
-    let wakeM = parseInt(document.getElementById('wakeUpMinutes').value) || 0;
+    let wakeH = +document.getElementById('wakeUpHours').value || 0;
+    let wakeM = +document.getElementById('wakeUpMinutes').value || 0;
 
-    schedule.push(createItem(wake, "Morning Routine", getDuration(wakeH, wakeM)));
+    let wakeDur = wakeH * 60 + wakeM || 60;
 
-    let start = document.getElementById('collegeStart').value;
-    let end = document.getElementById('collegeEnd').value;
+    schedule.push({
+        start: toMinutes(wake),
+        end: toMinutes(wake) + wakeDur,
+        label: "Morning Routine",
+        duration: wakeDur
+    });
 
-    if (start && end) {
-        let duration = toMinutes(end) - toMinutes(start);
-        schedule.push(createItem(start, "College", duration));
+    let cs = document.getElementById('collegeStart').value;
+    let ce = document.getElementById('collegeEnd').value;
+
+    if (cs && ce) {
+        let dur = toMinutes(ce) - toMinutes(cs);
+        schedule.push({
+            start: toMinutes(cs),
+            end: toMinutes(ce),
+            label: "College",
+            duration: dur
+        });
     }
 
-    document.querySelectorAll('#extraActivities div').forEach(row => {
+    document.querySelectorAll('.activity-row').forEach(row => {
+
         let name = row.querySelector('.activity-name').value;
         let time = row.querySelector('.activity-time').value;
 
-        let h = parseInt(row.querySelector('.duration-h').value) || 0;
-        let m = parseInt(row.querySelector('.duration-m').value) || 0;
+        let h = +row.querySelector('.duration-h').value || 0;
+        let m = +row.querySelector('.duration-m').value || 0;
+
+        let dur = h * 60 + m || 60;
 
         if (name && time) {
-            schedule.push(createItem(time, name, getDuration(h, m)));
+            schedule.push({
+                start: toMinutes(time),
+                end: toMinutes(time) + dur,
+                label: name,
+                duration: dur
+            });
         }
     });
 
     schedule.sort((a, b) => a.start - b.start);
 
+    let conflicts = [];
+
+    for (let i = 0; i < schedule.length - 1; i++) {
+        if (schedule[i + 1].start < schedule[i].end) {
+            conflicts.push(i, i + 1);
+        }
+    }
+
+    if (conflicts.length > 0) {
+        let allow = confirm("⚠ Overlap detected. Continue?");
+        if (!allow) return;
+    }
+
     mySchedule = schedule;
 
-    saveData();
-    renderSchedule();
+    renderSchedule(conflicts);
+
+    document.querySelector('.input-section').style.display = 'none';
+    document.querySelector('.output-section').style.display = 'block';
+
     updateCurrentTask();
 }
 
 // ---------- DISPLAY ----------
-function renderSchedule() {
-    const list = document.getElementById('scheduleList');
+function renderSchedule(conflicts) {
+
+    let list = document.getElementById('scheduleList');
     list.innerHTML = '';
 
-    mySchedule.forEach(item => {
+    mySchedule.forEach((item, i) => {
+
         let li = document.createElement('li');
 
-        li.textContent =
-            `${toTime(item.start)} - ${toTime(item.end)} | ${item.label} (${formatDuration(item.duration)})`;
+        let text = `${toTime(item.start)} - ${toTime(item.end)} | ${item.label} (${formatDuration(item.duration)})`;
+
+        if (conflicts.includes(i)) {
+            li.classList.add("conflict");
+            text += " ⚠";
+        }
+
+        li.textContent = text;
 
         list.appendChild(li);
     });
@@ -130,45 +161,22 @@ function renderSchedule() {
 
 // ---------- CURRENT TASK ----------
 function updateCurrentTask() {
-    const el = document.getElementById('currentTask');
 
-    if (mySchedule.length === 0) {
-        el.textContent = "No schedule";
-        return;
-    }
+    let el = document.getElementById('currentTask');
 
     let now = new Date();
     let current = now.getHours() * 60 + now.getMinutes();
 
     for (let item of mySchedule) {
 
-        if (current < item.start) {
-            el.textContent = `Next: ${item.label} at ${toTime(item.start)}`;
-            return;
-        }
-
         if (current >= item.start && current < item.end) {
+
             let remaining = item.end - current;
+
             el.textContent = `${item.label} (${formatDuration(remaining)} left)`;
             return;
         }
     }
 
     el.textContent = "Free time";
-}
-
-// ---------- SAVE ----------
-function saveData() {
-    localStorage.setItem("schedule", JSON.stringify(mySchedule));
-}
-
-// ---------- LOAD ----------
-function loadData() {
-    let saved = localStorage.getItem("schedule");
-
-    if (saved) {
-        mySchedule = JSON.parse(saved);
-        renderSchedule();
-        updateCurrentTask();
-    }
 }
