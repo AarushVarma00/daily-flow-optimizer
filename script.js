@@ -32,7 +32,7 @@ function createItem(time, label, duration) {
     return { start, end, label, duration };
 }
 
-// ---------- LOAD SAVED ----------
+// ---------- PAGE LOAD ----------
 document.addEventListener('DOMContentLoaded', () => {
 
     loadData();
@@ -48,6 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     setInterval(updateCurrentTask, 60000);
+    // Delegate remove button clicks inside the extra activities container
+    document.getElementById('extraActivities').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-btn')) {
+            e.target.parentElement.remove();
+        }
+    });
 });
 
 // ---------- ADD ACTIVITY ----------
@@ -55,11 +61,13 @@ function addActivity() {
     const container = document.getElementById('extraActivities');
 
     const row = document.createElement('div');
+
     row.innerHTML = `
         <input type="text" class="activity-name" placeholder="Activity">
         <input type="time" class="activity-time" value="18:00">
         <input type="number" class="duration-h" value="1">h
         <input type="number" class="duration-m" value="0">m
+        <button type="button" class="remove-btn">Remove</button>
     `;
 
     container.appendChild(row);
@@ -70,14 +78,12 @@ function generateSchedule() {
 
     let schedule = [];
 
-    // WAKE
     let wake = document.getElementById('wakeUp').value;
     let wakeH = parseInt(document.getElementById('wakeUpHours').value) || 0;
     let wakeM = parseInt(document.getElementById('wakeUpMinutes').value) || 0;
 
     schedule.push(createItem(wake, "Morning Routine", getDuration(wakeH, wakeM)));
 
-    // COLLEGE
     let start = document.getElementById('collegeStart').value;
     let end = document.getElementById('collegeEnd').value;
 
@@ -86,10 +92,10 @@ function generateSchedule() {
         schedule.push(createItem(start, "College", duration));
     }
 
-    // ACTIVITIES
     document.querySelectorAll('#extraActivities div').forEach(row => {
         let name = row.querySelector('.activity-name').value;
         let time = row.querySelector('.activity-time').value;
+
         let h = parseInt(row.querySelector('.duration-h').value) || 0;
         let m = parseInt(row.querySelector('.duration-m').value) || 0;
 
