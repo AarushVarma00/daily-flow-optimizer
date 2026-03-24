@@ -6,34 +6,57 @@
     <title>Daily Flow Optimizer</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
+
     <h1>Daily Flow Optimizer</h1>
 
-    <h3>Wake Up</h3>
-    <input type="time" id="wakeUp" value="07:00">
-    <input type="number" id="wakeUpHours" value="1">h
-    <input type="number" id="wakeUpMinutes" value="0">m
+    <div class="input-section">
 
-    <h3>College</h3>
-    <input type="time" id="collegeStart" value="09:00">
-    <input type="time" id="collegeEnd" value="17:00">
+        <h2>Plan Your Day</h2>
 
-    <h3>Activities</h3>
-    <div id="extraActivities"></div>
+        <label>When do you wake up?</label>
+        <input type="time" id="wakeUp" value="07:00">
 
-    <button id="addActivity">+ Add Activity</button>
-    <button id="generateBtn">Generate</button>
-    <button id="clearBtn">Clear</button>
+        <label>Morning routine duration</label>
+        <div class="duration-row">
+            <input type="number" id="wakeUpHours" value="1"> <span>hours</span>
+            <input type="number" id="wakeUpMinutes" value="0"> <span>minutes</span>
+        </div>
 
-    <h3>Now</h3>
-    <p id="currentTask">No schedule</p>
+        <h3>College Schedule</h3>
+        <label>When does it begin?</label>
+        <input type="time" id="collegeStart">
 
-    <h3>Schedule</h3>
-    <ul id="scheduleList"></ul>
+        <label>When does it end?</label>
+        <input type="time" id="collegeEnd">
+
+        <h3>Activities</h3>
+        <div id="extraActivities"></div>
+
+        <button id="addActivity">+ Add Activity</button>
+
+        <button id="generateBtn">Create My Day Plan</button>
+
+    </div>
+
+    <div class="output-section" style="display:none;">
+
+        <h2>Your Day Plan</h2>
+
+        <p id="currentTask"></p>
+
+        <ul id="scheduleList"></ul>
+
+        <button id="editBtn">Edit Plan</button>
+
+    </div>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
