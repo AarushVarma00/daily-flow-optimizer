@@ -13,39 +13,40 @@
    ════════════════════════════════════════════════ */
 :root {
   /* Color palette */
-  --clr-page-start:   #0a1628;
-  --clr-page-mid:     #0f2a3d;
-  --clr-page-end:     #1a3a52;
+  --clr-page-start:    #0a1628;
+  --clr-page-mid:      #0f2a3d;
+  --clr-page-end:      #1a3a52;
 
-  --clr-card-bg:      #0d1f2d;
-  --clr-card-border:  rgba(255,255,255,0.07);
+  --clr-card-bg:       #0d1f2d;
+  --clr-card-border:   rgba(255,255,255,0.07);
 
-  --clr-item-bg:      rgba(255,255,255,0.04);
-  --clr-item-bg-alt:  rgba(255,255,255,0.07);
-  --clr-item-border:  rgba(255,255,255,0.08);
+  --clr-item-bg:       rgba(255,255,255,0.04);
+  --clr-item-bg-alt:   rgba(255,255,255,0.07);
+  --clr-item-border:   rgba(255,255,255,0.08);
 
-  --clr-accent:       #38bdf8;
-  --clr-accent-dim:   rgba(56,189,248,0.12);
-  --clr-accent-glow:  rgba(56,189,248,0.25);
+  --clr-accent:        #38bdf8;
+  --clr-accent-dim:    rgba(56,189,248,0.12);
+  --clr-accent-glow:   rgba(56,189,248,0.25);
 
-  --clr-warn:         #fb923c;
-  --clr-warn-dim:     rgba(251,146,60,0.12);
+  --clr-warn:          #fb923c;
+  --clr-warn-dim:      rgba(251,146,60,0.15);
+  --clr-warn-border:   rgba(251,146,60,0.35);
 
-  --clr-danger:       #f87171;
-  --clr-danger-bg:    rgba(248,113,113,0.08);
-  --clr-danger-border:rgba(248,113,113,0.3);
+  --clr-danger:        #f87171;
+  --clr-danger-bg:     rgba(248,113,113,0.08);
+  --clr-danger-border: rgba(248,113,113,0.3);
 
-  --clr-success:      #34d399;
+  --clr-success:       #34d399;
 
-  --clr-text-primary: #e2e8f0;
-  --clr-text-muted:   #64748b;
-  --clr-text-subtle:  #475569;
-  --clr-text-error:   #fca5a5;
-  --clr-text-accent:  #38bdf8;
+  --clr-text-primary:  #e2e8f0;
+  --clr-text-muted:    #64748b;
+  --clr-text-subtle:   #475569;
+  --clr-text-error:    #fca5a5;
+  --clr-text-accent:   #38bdf8;
 
-  --clr-input-bg:     rgba(255,255,255,0.05);
-  --clr-input-border: rgba(255,255,255,0.12);
-  --clr-input-focus:  #38bdf8;
+  --clr-input-bg:      rgba(255,255,255,0.05);
+  --clr-input-border:  rgba(255,255,255,0.12);
+  --clr-input-focus:   #38bdf8;
 
   /* Typography */
   --font-display: 'Syne', sans-serif;
@@ -60,41 +61,35 @@
   --text-2xl:  1.75rem;
   --text-3xl:  2.25rem;
 
-  /* Spacing scale */
-  --sp-1: 0.25rem;
-  --sp-2: 0.5rem;
-  --sp-3: 0.75rem;
-  --sp-4: 1rem;
-  --sp-5: 1.25rem;
-  --sp-6: 1.5rem;
-  --sp-8: 2rem;
-  --sp-10: 2.5rem;
+  /* Spacing */
+  --sp-1: 0.25rem;  --sp-2: 0.5rem;  --sp-3: 0.75rem;
+  --sp-4: 1rem;     --sp-5: 1.25rem; --sp-6: 1.5rem;
+  --sp-8: 2rem;     --sp-10: 2.5rem;
 
   /* Radii */
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  16px;
-  --radius-xl:  22px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
 
   /* Transitions */
-  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-fast:   120ms;
-  --dur-base:   200ms;
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 300ms;
 }
 
 /* ════════════════════════════════════════════════
    BASE
    ════════════════════════════════════════════════ */
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
   font-size: var(--text-base);
   color: var(--clr-text-primary);
   background:
-    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(56,189,248,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 20% 0%,  rgba(56,189,248,0.06) 0%, transparent 60%),
     radial-gradient(ellipse 60% 50% at 80% 100%, rgba(251,146,60,0.04) 0%, transparent 60%),
     linear-gradient(165deg, var(--clr-page-start) 0%, var(--clr-page-mid) 50%, var(--clr-page-end) 100%);
   background-attachment: fixed;
@@ -102,6 +97,23 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ════════════════════════════════════════════════
+   NO-JS FALLBACK
+   ════════════════════════════════════════════════ */
+.noscript-wall {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--sp-8);
+  text-align: center;
+  gap: var(--sp-4);
+}
+.noscript-wall__icon  { font-size: 3rem; }
+.noscript-wall__title { font-family: var(--font-display); font-size: var(--text-2xl); }
+.noscript-wall__body  { color: var(--clr-text-muted); max-width: 28ch; }
 
 /* ════════════════════════════════════════════════
    LAYOUT
@@ -151,6 +163,17 @@ body {
   margin-bottom: var(--sp-6);
 }
 
+/* Animate card into view on reveal — no JS needed */
+#inputSection:not([hidden]),
+#outputSection:not([hidden]) {
+  animation: cardEnter var(--dur-slow) var(--ease) both;
+}
+
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .card__title {
   font-family: var(--font-display);
   font-size: var(--text-xl);
@@ -196,24 +219,14 @@ body {
   padding: 0 var(--sp-2);
   letter-spacing: 0.01em;
 }
-
 .form-legend__note {
   font-weight: 400;
   color: var(--clr-text-subtle);
   font-size: var(--text-xs);
 }
 
-.form-label {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--clr-text-muted);
-}
-
-.form-label--inline {
-  font-size: var(--text-sm);
-  color: var(--clr-text-muted);
-  white-space: nowrap;
-}
+.form-label        { font-size: var(--text-sm); font-weight: 500; color: var(--clr-text-muted); }
+.form-label--inline { font-size: var(--text-sm); color: var(--clr-text-muted); white-space: nowrap; }
 
 /* Inputs */
 .form-input {
@@ -227,32 +240,22 @@ body {
   font-size: var(--text-base);
   transition:
     border-color var(--dur-fast) var(--ease),
-    box-shadow var(--dur-fast) var(--ease),
-    background var(--dur-fast) var(--ease);
+    box-shadow   var(--dur-fast) var(--ease),
+    background   var(--dur-fast) var(--ease);
   outline: none;
   appearance: none;
   -webkit-appearance: none;
 }
 
-/* Time/number inputs use mono for readability */
 input[type="time"],
-input[type="number"] {
-  font-family: var(--font-mono);
-}
+input[type="number"] { font-family: var(--font-mono); }
 
-/* iOS Safari: restoring appearance on time inputs prevents native picker from breaking */
-input[type="time"] {
-  -webkit-appearance: auto;
-  appearance: auto;
-}
+/* iOS Safari — restoring appearance prevents native picker from breaking */
+input[type="time"] { -webkit-appearance: auto; appearance: auto; }
 
-.form-input::placeholder {
-  color: var(--clr-text-subtle);
-}
+.form-input::placeholder { color: var(--clr-text-subtle); }
 
-.form-input:hover {
-  border-color: rgba(255,255,255,0.2);
-}
+.form-input:hover  { border-color: rgba(255,255,255,0.2); }
 
 .form-input:focus {
   border-color: var(--clr-input-focus);
@@ -264,28 +267,12 @@ input[type="time"] {
   border-color: var(--clr-danger);
   box-shadow: 0 0 0 3px var(--clr-danger-bg);
 }
+.form-input.is-invalid:focus { box-shadow: 0 0 0 3px rgba(248,113,113,0.25); }
 
-.form-input.is-invalid:focus {
-  box-shadow: 0 0 0 3px rgba(248,113,113,0.25);
-}
+.form-input--short { width: 72px; text-align: center; }
 
-.form-input--short {
-  width: 72px;
-  text-align: center;
-}
-
-/* Duration layout */
-.duration-row {
-  display: flex;
-  gap: var(--sp-4);
-  align-items: center;
-}
-
-.duration-unit {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-}
+.duration-row  { display: flex; gap: var(--sp-4); align-items: center; }
+.duration-unit { display: flex; align-items: center; gap: var(--sp-2); }
 
 /* ════════════════════════════════════════════════
    ACTIVITY CARD
@@ -319,18 +306,9 @@ input[type="time"] {
   color: var(--clr-text-subtle);
 }
 
-.activity-card .form-group {
-  margin-bottom: var(--sp-3);
-}
-
-.activity-card .form-fieldset {
-  margin-bottom: 0;
-  padding: var(--sp-3);
-}
-
-.activity-card .field-error {
-  margin-top: var(--sp-1);
-}
+.activity-card .form-group   { margin-bottom: var(--sp-3); }
+.activity-card .form-fieldset { margin-bottom: 0; padding: var(--sp-3); }
+.activity-card .field-error  { margin-top: var(--sp-1); }
 
 /* ════════════════════════════════════════════════
    ERRORS
@@ -356,11 +334,7 @@ input[type="time"] {
   margin: var(--sp-4) 0;
   font-weight: 500;
 }
-
-.form-error::before {
-  content: "⚠";
-  flex-shrink: 0;
-}
+.form-error::before { content: "⚠"; flex-shrink: 0; }
 
 /* ════════════════════════════════════════════════
    BUTTONS
@@ -377,24 +351,17 @@ input[type="time"] {
   cursor: pointer;
   text-align: center;
   transition:
-    background var(--dur-fast) var(--ease),
-    box-shadow var(--dur-fast) var(--ease),
-    transform var(--dur-fast) var(--ease),
-    opacity var(--dur-fast) var(--ease);
+    background  var(--dur-fast) var(--ease),
+    box-shadow  var(--dur-fast) var(--ease),
+    transform   var(--dur-fast) var(--ease),
+    opacity     var(--dur-fast) var(--ease);
   letter-spacing: 0.01em;
-  line-height: 1;
+  line-height: 1.4;
 }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--clr-accent); outline-offset: 3px; }
 
-.btn:active {
-  transform: translateY(1px);
-}
-
-.btn:focus-visible {
-  outline: 2px solid var(--clr-accent);
-  outline-offset: 3px;
-}
-
-/* Primary — generate */
+/* Primary */
 .btn--primary {
   background: var(--clr-accent);
   color: #0a1628;
@@ -404,26 +371,27 @@ input[type="time"] {
   border-radius: var(--radius-md);
   letter-spacing: -0.01em;
 }
+.btn--primary:hover { background: #67d2fb; box-shadow: 0 0 24px var(--clr-accent-glow); }
 
-.btn--primary:hover {
-  background: #67d2fb;
-  box-shadow: 0 0 24px var(--clr-accent-glow);
-}
-
-/* Secondary — edit */
+/* Secondary */
 .btn--secondary {
   background: var(--clr-item-bg-alt);
   border: 1px solid var(--clr-item-border);
   color: var(--clr-text-primary);
   margin-top: var(--sp-4);
 }
+.btn--secondary:hover { background: var(--clr-item-bg); border-color: rgba(255,255,255,0.15); }
 
-.btn--secondary:hover {
-  background: var(--clr-item-bg);
-  border-color: rgba(255,255,255,0.15);
+/* Warn — used in conflict modal confirm button */
+.btn--warn {
+  background: var(--clr-warn);
+  color: #0a1628;
+  font-weight: 700;
+  margin-top: 0;
 }
+.btn--warn:hover { background: #fdba74; box-shadow: 0 0 20px var(--clr-warn-dim); }
 
-/* Ghost — add activity */
+/* Ghost */
 .btn--ghost {
   background: transparent;
   border: 1px dashed var(--clr-item-border);
@@ -432,14 +400,9 @@ input[type="time"] {
   margin-top: var(--sp-2);
   padding: var(--sp-2) var(--sp-3);
 }
+.btn--ghost:hover { background: var(--clr-item-bg); border-color: rgba(255,255,255,0.2); color: var(--clr-text-primary); }
 
-.btn--ghost:hover {
-  background: var(--clr-item-bg);
-  border-color: rgba(255,255,255,0.2);
-  color: var(--clr-text-primary);
-}
-
-/* Icon — remove activity */
+/* Icon */
 .btn--icon {
   display: inline-flex;
   align-items: center;
@@ -454,21 +417,25 @@ input[type="time"] {
   font-size: 0.7rem;
   cursor: pointer;
   transition:
-    background var(--dur-fast) var(--ease),
-    color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease);
+    background    var(--dur-fast) var(--ease),
+    color         var(--dur-fast) var(--ease),
+    border-color  var(--dur-fast) var(--ease);
 }
+.btn--icon:hover { background: var(--clr-danger-bg); color: var(--clr-text-error); border-color: var(--clr-danger-border); }
+.btn--icon:focus-visible { outline: 2px solid var(--clr-danger); outline-offset: 2px; }
 
-.btn--icon:hover {
-  background: var(--clr-danger-bg);
-  color: var(--clr-text-error);
-  border-color: var(--clr-danger-border);
+/* Keyboard shortcut hint inside generate button */
+.btn__kbd {
+  display: block;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  opacity: 0.5;
+  margin-top: 3px;
+  letter-spacing: 0.05em;
 }
-
-.btn--icon:focus-visible {
-  outline: 2px solid var(--clr-danger);
-  outline-offset: 2px;
-}
+/* Hide hint on touch devices where Ctrl+Enter doesn't apply */
+@media (pointer: coarse) { .btn__kbd { display: none; } }
 
 /* ════════════════════════════════════════════════
    CURRENT TASK WIDGET
@@ -483,7 +450,6 @@ input[type="time"] {
   padding: var(--sp-4) var(--sp-5);
   margin-bottom: var(--sp-5);
 }
-
 .current-task__label {
   font-size: var(--text-xs);
   text-transform: uppercase;
@@ -491,7 +457,6 @@ input[type="time"] {
   color: var(--clr-text-accent);
   font-weight: 600;
 }
-
 .current-task__value {
   font-family: var(--font-display);
   font-size: var(--text-xl);
@@ -501,7 +466,78 @@ input[type="time"] {
 }
 
 /* ════════════════════════════════════════════════
+   PIE CHART
+   ════════════════════════════════════════════════ */
+#pieChart { margin-bottom: var(--sp-5); }
+
+.pie-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--clr-item-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+}
+.pie-svg-wrap {
+  flex-shrink: 0;
+  width: 148px;
+  height: 148px;
+  filter: drop-shadow(0 0 18px rgba(56,189,248,0.12));
+}
+.pie-slice {
+  transition: opacity var(--dur-base) var(--ease);
+}
+.pie-legend {
+  list-style: none;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.pie-legend__item {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: var(--sp-2);
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.pie-legend__item.is-done { opacity: 0.38; }
+.pie-legend__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background var(--dur-base) var(--ease);
+}
+.pie-legend__label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--clr-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pie-legend__item.is-done .pie-legend__label { text-decoration: line-through; color: var(--clr-text-subtle); }
+.pie-legend__dur {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--clr-text-subtle);
+  flex-shrink: 0;
+}
+
+@media (max-width: 380px) {
+  .pie-wrap { flex-direction: column; gap: var(--sp-4); }
+  .pie-svg-wrap { width: 130px; height: 130px; }
+}
+
+/* ════════════════════════════════════════════════
    SCHEDULE LIST
+   FIX: grid-template-columns defined ONCE here.
+   Previous version had two contradicting declarations —
+   original (auto 1fr auto) + appended override (22px auto 1fr auto).
+   Consolidated to single source of truth.
    ════════════════════════════════════════════════ */
 .schedule-list {
   list-style: none;
@@ -512,7 +548,7 @@ input[type="time"] {
 
 .schedule-item {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 22px auto 1fr auto; /* checkbox | time | label | meta */
   align-items: center;
   gap: var(--sp-3);
   background: var(--clr-item-bg);
@@ -522,9 +558,7 @@ input[type="time"] {
   transition: background var(--dur-fast) var(--ease);
 }
 
-.schedule-item:hover {
-  background: var(--clr-item-bg-alt);
-}
+.schedule-item:hover { background: var(--clr-item-bg-alt); }
 
 .schedule-item.is-conflict {
   background: var(--clr-danger-bg);
@@ -533,6 +567,69 @@ input[type="time"] {
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
+.schedule-item--empty {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  color: var(--clr-text-subtle);
+  font-size: var(--text-sm);
+}
+
+/* Checkbox */
+.schedule-item__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.schedule-item__check input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.check-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background   var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    box-shadow   var(--dur-fast) var(--ease);
+  flex-shrink: 0;
+  position: relative;
+}
+.schedule-item__check:hover .check-box {
+  border-color: var(--clr-success);
+  background: rgba(52,211,153,0.08);
+  box-shadow: 0 0 0 3px rgba(52,211,153,0.12);
+}
+.schedule-item__check input:checked ~ .check-box {
+  background: var(--clr-success);
+  border-color: var(--clr-success);
+  box-shadow: 0 0 8px rgba(52,211,153,0.35);
+}
+.schedule-item__check input:checked ~ .check-box::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 8px;
+  border: 2px solid #0a1628;
+  border-top: none;
+  border-left: none;
+  transform: rotate(44deg) translate(0px, -1px);
+}
+
+/* Done state */
+.schedule-item.is-done { opacity: 0.6; transition: opacity var(--dur-base) var(--ease); }
+.schedule-item.is-done .schedule-item__label { text-decoration: line-through; color: var(--clr-text-subtle); }
+
+/* Schedule item cells */
 .schedule-item__time {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -540,25 +637,24 @@ input[type="time"] {
   white-space: nowrap;
   letter-spacing: -0.01em;
 }
-
 .schedule-item__label {
   font-weight: 600;
   font-size: var(--text-sm);
   color: var(--clr-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
 .schedule-item__meta {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
 }
-
 .schedule-item__duration {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   color: var(--clr-text-subtle);
 }
-
 .schedule-item__badge {
   font-size: 0.65rem;
   font-weight: 700;
@@ -571,13 +667,102 @@ input[type="time"] {
 }
 
 /* ════════════════════════════════════════════════
-   UTILITIES / COLOR SCHEME
+   CONFLICT MODAL
+   Replaces browser-native confirm() — styled, accessible,
+   mobile-friendly, and analytics-ready.
    ════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  z-index: 1000;
+  animation: overlayIn var(--dur-base) var(--ease) both;
+}
+.modal-overlay[hidden] { display: none; }
 
-/* Colour-scheme for native inputs (time picker etc.) */
-input[type="time"] {
-  color-scheme: dark;
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-input[type="number"] {
-  color-scheme: dark;
+
+.modal {
+  background: #0d1f2d;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-8) var(--sp-6);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  animation: modalIn var(--dur-slow) var(--ease) both;
 }
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal__icon {
+  font-size: 2rem;
+  margin-bottom: var(--sp-4);
+  display: block;
+  color: var(--clr-warn);
+  filter: drop-shadow(0 0 12px var(--clr-warn-dim));
+}
+.modal__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--sp-3);
+  letter-spacing: -0.01em;
+}
+.modal__body {
+  font-size: var(--text-sm);
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--sp-6);
+}
+.modal__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+.modal__actions .btn { margin-top: 0; }
+
+/* ════════════════════════════════════════════════
+   COLOUR SCHEME — native input pickers
+   ════════════════════════════════════════════════ */
+input[type="time"],
+input[type="number"] { color-scheme: dark; }
+
+/* ════════════════════════════════════════════════
+   PRINT — basic schedule export
+   ════════════════════════════════════════════════ */
+@media print {
+  body { background: white; color: black; }
+  .site-header h1 { -webkit-text-fill-color: black; background: none; color: black; }
+  .btn, #inputSection, .modal-overlay { display: none !important; }
+  .card { border: 1px solid #ccc; box-shadow: none; }
+  .schedule-item { border: 1px solid #ddd; }
+}
+
+/* ════════════════════════════════════════════════
+   REDUCED MOTION
+   Respects OS-level "Reduce Motion" setting.
+   Required for accessibility compliance (WCAG 2.1 §2.3.3).
+   ════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
+  }
+}
+
