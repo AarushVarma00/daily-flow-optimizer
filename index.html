@@ -1,62 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Flow Optimizer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plan and optimise your daily schedule with clarity.">
+  <title>Daily Flow Optimizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
 
-    <h1>Daily Flow Optimizer</h1>
+  <header class="site-header">
+    <h1>Daily Flow</h1>
+    <p class="tagline">Build your day. Own your time.</p>
+  </header>
 
-    <div class="input-section">
+  <!-- ═══════════════════════════════════
+       INPUT SECTION
+  ════════════════════════════════════ -->
+  <section class="card" id="inputSection" aria-label="Day planner form">
 
-        <h2>Plan Your Day</h2>
+    <h2 class="card__title">Plan Your Day</h2>
 
-        <label>When do you wake up?</label>
-        <input type="time" id="wakeUp" value="07:00">
+    <!-- Wake-up -->
+    <div class="form-group">
+      <label class="form-label" for="wakeUp">Wake-up time</label>
+      <input type="time" id="wakeUp" class="form-input" value="07:00" required aria-required="true" aria-describedby="err-wakeUp">
+      <span class="field-error" id="err-wakeUp" role="alert" aria-live="polite"></span>
+    </div>
 
-        <label>Morning routine duration</label>
-        <div class="duration-row">
-            <input type="number" id="wakeUpHours" value="1"> <span>hours</span>
-            <input type="number" id="wakeUpMinutes" value="0"> <span>minutes</span>
+    <!-- Morning routine -->
+    <fieldset class="form-fieldset">
+      <legend class="form-legend">Morning routine duration</legend>
+      <div class="duration-row">
+        <div class="duration-unit">
+          <input type="number" id="wakeUpHours" class="form-input form-input--short" value="1" min="0" max="12" aria-label="Hours">
+          <label class="form-label--inline" for="wakeUpHours">hr</label>
         </div>
+        <div class="duration-unit">
+          <input type="number" id="wakeUpMinutes" class="form-input form-input--short" value="0" min="0" max="59" aria-label="Minutes">
+          <label class="form-label--inline" for="wakeUpMinutes">min</label>
+        </div>
+      </div>
+    </fieldset>
 
-        <h3>College Schedule</h3>
-        <label>When does it begin?</label>
-        <input type="time" id="collegeStart">
+    <!-- College / Work -->
+    <fieldset class="form-fieldset">
+      <legend class="form-legend">College / Work <span class="form-legend__note">(optional)</span></legend>
+      <div class="form-group">
+        <label class="form-label" for="collegeStart">Start time</label>
+        <input type="time" id="collegeStart" class="form-input" aria-describedby="err-college">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="collegeEnd">End time</label>
+        <input type="time" id="collegeEnd" class="form-input" aria-describedby="err-college">
+      </div>
+      <span class="field-error" id="err-college" role="alert" aria-live="polite"></span>
+    </fieldset>
 
-        <label>When does it end?</label>
-        <input type="time" id="collegeEnd">
+    <!-- Activities -->
+    <section aria-label="Custom activities">
+      <h3 class="section-label">Activities</h3>
+      <div id="activitiesContainer"></div>
+      <button type="button" class="btn btn--ghost" id="addActivityBtn">+ Add Activity</button>
+    </section>
 
-        <h3>Activities</h3>
-        <div id="extraActivities"></div>
+    <!-- Form-level error -->
+    <div id="formError" class="form-error" role="alert" aria-live="assertive" hidden></div>
 
-        <button id="addActivity">+ Add Activity</button>
+    <button type="button" class="btn btn--primary" id="generateBtn">Create My Day Plan</button>
 
-        <button id="generateBtn">Create My Day Plan</button>
+  </section>
 
+  <!-- ═══════════════════════════════════
+       OUTPUT SECTION
+  ════════════════════════════════════ -->
+  <section class="card" id="outputSection" hidden aria-label="Your day plan">
+
+    <h2 class="card__title">Your Day Plan</h2>
+
+    <div class="current-task" aria-live="polite" aria-label="Current task">
+      <span class="current-task__label">Right now</span>
+      <span class="current-task__value" id="currentTaskValue">—</span>
     </div>
 
-    <div class="output-section" style="display:none;">
+    <ul class="schedule-list" id="scheduleList" aria-label="Full schedule"></ul>
 
-        <h2>Your Day Plan</h2>
+    <button type="button" class="btn btn--secondary" id="editBtn">Edit Plan</button>
 
-        <p id="currentTask"></p>
-
-        <ul id="scheduleList"></ul>
-
-        <button id="editBtn">Edit Plan</button>
-
-    </div>
+  </section>
 
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
+
