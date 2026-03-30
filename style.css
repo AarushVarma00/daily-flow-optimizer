@@ -146,7 +146,7 @@ body {
   background: var(--clr-card-bg);
   border: 1px solid var(--clr-card-border);
   border-radius: var(--radius-xl);
-  padding: var(--sp-6) var(--sp-6);
+  padding: var(--sp-6);
   backdrop-filter: blur(12px);
   margin-bottom: var(--sp-6);
 }
@@ -238,6 +238,12 @@ body {
 input[type="time"],
 input[type="number"] {
   font-family: var(--font-mono);
+}
+
+/* iOS Safari: restoring appearance on time inputs prevents native picker from breaking */
+input[type="time"] {
+  -webkit-appearance: auto;
+  appearance: auto;
 }
 
 .form-input::placeholder {
