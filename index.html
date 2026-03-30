@@ -3,14 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plan and optimise your daily schedule with clarity.">
-  <title>Daily Flow Optimizer</title>
+
+  <!-- ── Primary SEO ─────────────────────────────────────────── -->
+  <meta name="description"
+        content="Build a clear, conflict-free daily schedule in seconds. Plan your day, track your tasks, own your time.">
+  <meta name="author" content="Daily Flow">
+
+  <!-- ── Open Graph — LinkedIn / WhatsApp / Telegram / Facebook ─ -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Daily Flow — Build your day. Own your time.">
+  <meta property="og:description" content="Build a clear, conflict-free daily schedule in seconds. Plan your day, track your tasks, own your time.">
+  <meta property="og:image"       content="og-image.png">
+
+  <!-- ── Twitter / X card ────────────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Daily Flow — Build your day. Own your time.">
+  <meta name="twitter:description" content="Build a clear, conflict-free daily schedule in seconds.">
+  <meta name="twitter:image"       content="og-image.png">
+
+  <!-- ── Mobile browser chrome colour ───────────────────────── -->
+  <meta name="theme-color" content="#0a1628">
+
+  <!-- ── iOS "Add to Home Screen" ────────────────────────────── -->
+  <meta name="apple-mobile-web-app-capable"          content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title"            content="Daily Flow">
+
+  <title>Daily Flow — Build your day. Own your time.</title>
+
+  <!-- Emoji favicon — no external file needed -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%E2%9A%A1</text></svg>">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- No-JS fallback -->
+<noscript>
+  <div class="noscript-wall">
+    <span class="noscript-wall__icon">⚡</span>
+    <h1 class="noscript-wall__title">JavaScript required</h1>
+    <p class="noscript-wall__body">
+      Daily Flow needs JavaScript to run. Please enable it in your browser settings and refresh.
+    </p>
+  </div>
+</noscript>
 
 <div class="container">
 
@@ -19,36 +61,34 @@
     <p class="tagline">Build your day. Own your time.</p>
   </header>
 
-  <!-- ═══════════════════════════════════
-       INPUT SECTION
-  ════════════════════════════════════ -->
+  <!-- INPUT SECTION -->
   <section class="card" id="inputSection" aria-label="Day planner form">
 
     <h2 class="card__title">Plan Your Day</h2>
 
-    <!-- Wake-up -->
     <div class="form-group">
       <label class="form-label" for="wakeUp">Wake-up time</label>
-      <input type="time" id="wakeUp" class="form-input" value="07:00" required aria-required="true" aria-describedby="err-wakeUp">
+      <input type="time" id="wakeUp" class="form-input" value="07:00"
+             required aria-required="true" aria-describedby="err-wakeUp">
       <span class="field-error" id="err-wakeUp" aria-live="polite"></span>
     </div>
 
-    <!-- Morning routine -->
     <fieldset class="form-fieldset">
       <legend class="form-legend">Morning routine duration</legend>
       <div class="duration-row">
         <div class="duration-unit">
-          <input type="number" id="wakeUpHours" class="form-input form-input--short" value="1" min="0" max="12" aria-label="Hours">
+          <input type="number" id="wakeUpHours" class="form-input form-input--short"
+                 value="1" min="0" max="12" aria-label="Hours">
           <label class="form-label--inline" for="wakeUpHours">hr</label>
         </div>
         <div class="duration-unit">
-          <input type="number" id="wakeUpMinutes" class="form-input form-input--short" value="0" min="0" max="59" aria-label="Minutes">
+          <input type="number" id="wakeUpMinutes" class="form-input form-input--short"
+                 value="0" min="0" max="59" aria-label="Minutes">
           <label class="form-label--inline" for="wakeUpMinutes">min</label>
         </div>
       </div>
     </fieldset>
 
-    <!-- College / Work -->
     <fieldset class="form-fieldset">
       <legend class="form-legend">College / Work <span class="form-legend__note">(optional)</span></legend>
       <div class="form-group">
@@ -62,23 +102,22 @@
       <span class="field-error" id="err-college" aria-live="polite"></span>
     </fieldset>
 
-    <!-- Activities -->
     <section aria-label="Custom activities">
       <h3 class="section-label">Activities</h3>
       <div id="activitiesContainer"></div>
       <button type="button" class="btn btn--ghost" id="addActivityBtn">+ Add Activity</button>
     </section>
 
-    <!-- Form-level error -->
     <div id="formError" class="form-error" role="alert" aria-live="assertive" hidden></div>
 
-    <button type="button" class="btn btn--primary" id="generateBtn">Create My Day Plan</button>
+    <button type="button" class="btn btn--primary" id="generateBtn">
+      Create My Day Plan
+      <span class="btn__kbd" aria-hidden="true">Ctrl + Enter</span>
+    </button>
 
   </section>
 
-  <!-- ═══════════════════════════════════
-       OUTPUT SECTION
-  ════════════════════════════════════ -->
+  <!-- OUTPUT SECTION -->
   <section class="card" id="outputSection" hidden aria-label="Your day plan">
 
     <h2 class="card__title">Your Day Plan</h2>
@@ -88,6 +127,8 @@
       <span class="current-task__value" id="currentTaskValue">—</span>
     </div>
 
+    <div id="pieChart" aria-label="Task completion chart"></div>
+
     <ul class="schedule-list" id="scheduleList" aria-label="Full schedule"></ul>
 
     <button type="button" class="btn btn--secondary" id="editBtn">Edit Plan</button>
@@ -96,7 +137,22 @@
 
 </div>
 
+<!-- CONFLICT MODAL — replaces native confirm() for proper mobile UX -->
+<div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true"
+     aria-labelledby="modalTitle" aria-describedby="modalBody" hidden>
+  <div class="modal">
+    <div class="modal__icon" aria-hidden="true">⚠</div>
+    <h2 class="modal__title" id="modalTitle">Schedule Overlap</h2>
+    <p class="modal__body"  id="modalBody"></p>
+    <div class="modal__actions">
+      <button type="button" class="btn btn--secondary" id="modalCancel">Go Back</button>
+      <button type="button" class="btn btn--warn"      id="modalConfirm">Continue Anyway</button>
+    </div>
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
+>
 
