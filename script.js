@@ -305,7 +305,8 @@ const UI = {
   showInput() {
     this._el('inputSection').hidden  = false;
     this._el('outputSection').hidden = true;
-    this._el('inputSection').focus?.();
+    // Focus the first meaningful input for keyboard users
+    document.getElementById('wakeUp')?.focus();
   },
 
   showOutput() {
@@ -393,12 +394,12 @@ const UI = {
           <div class="duration-unit">
             <input type="number" class="form-input form-input--short act-hours"
                    value="1" min="0" max="12" aria-label="Duration hours">
-            <label class="form-label--inline">hr</label>
+            <span class="form-label--inline">hr</span>
           </div>
           <div class="duration-unit">
             <input type="number" class="form-input form-input--short act-mins"
                    value="0" min="0" max="59" aria-label="Duration minutes">
-            <label class="form-label--inline">min</label>
+            <span class="form-label--inline">min</span>
           </div>
         </div>
       </fieldset>
@@ -572,9 +573,8 @@ const App = {
     // ── 4. Conflict check (non-blocking, user confirms) ───
     const conflicts = ScheduleEngine.findConflicts(entries);
     if (conflicts.size > 0) {
-      const count   = Math.floor(conflicts.size / 2); // rough overlap pair count
       const proceed = confirm(
-        `Your schedule has ${count} time overlap${count !== 1 ? 's' : ''}.\n\nContinue anyway?`
+        `Your schedule has time overlaps between ${conflicts.size} item${conflicts.size !== 1 ? 's' : ''}.\n\nContinue anyway?`
       );
       if (!proceed) return;
     }
@@ -630,3 +630,4 @@ const App = {
    BOOT
    ════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => App.init());
+
